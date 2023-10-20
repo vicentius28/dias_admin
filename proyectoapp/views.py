@@ -32,8 +32,7 @@ def profile(request):
     return render(request, 'account/profile.html')
 def revisar(request):
     return render(request, 'proyectoapp/revisar.html')
-def admin(request):
-    return render(request, 'admin')
+
 
 #Listado de Usuarios
 def Listado(request):
@@ -78,7 +77,6 @@ def usuarios(request):
 
 def aceptar_formulario(request, formulario_id):
     if request.method == 'POST':
-
         logger = logging.getLogger(__name__)
         try:
             formulario = Formulario.objects.get(id=formulario_id)
