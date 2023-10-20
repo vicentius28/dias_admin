@@ -1,0 +1,70 @@
+#box {
+    width: 90vh;
+    height: 80vh;
+    margin-left: 30%;
+    margin-top: 3%;
+    background-color: beige;
+    border-color: #4a4a4a;
+    border-radius: .25rem;
+    box-shadow: 0 .5em 1em -.125em hsla(0,0%,4%,.1),0 0 0 1px hsla(0,0%,4%,.02);
+    color: #4a4a4a;
+    max-width: 100%;
+    position: relative;
+    padding: 2%;
+}
+
+#columns {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+#column {
+    display: block;
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: .75rem;
+}
+#card2 {
+    width: 500px;
+    height: 60px;
+    background-color: #fff;
+    border-color: gray;
+    border-width: 1px;
+    border-style: solid;
+    position: relative;
+    padding-left: 10px;
+}
+#card3 {
+    width: 400px;
+    height: 60px;
+    margin-left: 100px;
+    background-color: #fff;
+    border-color: gray;
+    border-width: 1px;
+    border-style: solid;
+    position: relative;
+    padding-left: 10px;
+}
+#colora{
+    background-color: greenyellow;
+    position: absolute;
+    top: 81%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+#colord{
+    background-color: red;
+    position: absolute;
+    top: 81%;
+    left: 79.2%;
+    transform: translate(-50%, -50%);
+}
+
+#cotyb{
+    color:black;
+    background-color: aquamarine;
+    position: absolute;
+}

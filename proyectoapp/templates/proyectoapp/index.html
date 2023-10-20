@@ -1,0 +1,50 @@
+{% extends "../base.html" %}
+{% load crispy_forms_tags%}
+{% load static %}
+{%block content%}
+<script src='{% static "assets/js/bootstrap/bootstrap.bundle.min.js" %}'></script>  
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel=" stylesheet" type="text/css" href='{% static "CSS/footer.css" %}'>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using one tap sigin" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+
+  <body>
+    <div class="col-md-4 mx-auto content" style="position:static; z-index:2;">
+      <script type="text/javascript">
+        $(document).ready(function() {
+            setTimeout(function() {
+                $(".content").fadeOut(1500);
+            },3000);
+        })
+      </script>
+    {% if messages %}
+      {% for message in messages%}
+        <div class="alert alert-success" role="alert">
+          {{message}} 
+        </div>
+      {% endfor %}
+    {% endif %}
+    </div> 
+    <footer class="footer">
+      <h3 style="font-style: italic; color: crimson;"></h3>
+      <div class="button">
+        <div class="top-social">
+          <ul>
+            <li><a href="https://www.facebook.com/somoscslb/" class="facebook"><i class="fa fa-facebook-f fa-2x"></i></a></li>
+            <li><a href="https://www.instagram.com/somoscslb/?hl=es-la/" class="instagram"><i class="fa fa-instagram fa-2x"></i></a></li>
+            <li><a href="https://www.youtube.com/@CSLB-/featured/" class="youtube"><i class="fa fa-youtube fa-2x"></i></a></li>
+          </ul>
+          <p style="font-style: italic; color: azure; font-size: 20px;">pagina del colegio</p>
+          <a style="font-style: italic; color: azure; font-size: 20px;" href="https://cslb.cl/">https://cslb.cl</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+{% endblock %}

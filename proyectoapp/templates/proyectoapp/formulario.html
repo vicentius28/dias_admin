@@ -1,0 +1,159 @@
+{% extends "../base.html" %} {% load crispy_forms_tags%} {% load static %}
+{%block content%}
+
+<script src='{% static "assets/js/bootstrap/bootstrap.bundle.min.js" %}'></script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- codigo css-->
+  <link rel="stylesheet" type="text/css" href='{% static "CSS/body_nav.css"%}' />
+  <link rel="stylesheet" type="text/css" href='{% static "CSS/style_so.css"%}' />
+  <!-- codigo sweetalert2-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!--html meta-->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <!--cloudflare-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="col-md-4 mx-auto content" style="position:static; z-index:2;">
+    <script type="text/javascript">
+      $(document).ready(function() {
+          setTimeout(function() {
+              $(".content").fadeOut(1500);
+          },3000);
+      })
+    </script>
+  {% if messages %}
+    {% for message in messages%}
+      <div class="alert alert-warning" role="alert">
+        {{message}} 
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div> 
+  <div class="card">
+    <form id="miFormulario" method="POST">
+      {% csrf_token %}
+
+      <!--  DEFINICIÓN DE INPUT PARA INGRESAR CORREO ELECTRÓNICO -->
+      <div class="mb-2 lg mb-3">
+        <label class="form-label">Correo institucional</label>
+        <input type="email" class="form-control" id="txtemail" name="email" value="{{user.email | lower}}" required
+          disabled />
+      </div>
+      <!--correo jefe-->
+      <div class="mb-2 lg mb-3">
+        <label class="form-label">Encargado</label>
+        <input type="email" class="form-control" id="txtemail" name="encargado" value="{{user.jefe | lower}}" required
+          disabled />
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <!--  DEFINICIÓN DE INPUT PARA INGRESAR motivo -->
+        <div class="mb-2 lg mb-3">
+          <label class="form-label">Motivo</label>
+          <select class="form-select lg mb-3" name="motivo" id="motivo" required>
+            <option value="" selected="selected" id="valordo">
+              seleccion motivo
+            </option>
+            <option value="0">Dia Cumpleaños</option>
+            <option value="1">Dia Administrativo</option>
+          </select>
+        </div>
+        <div class="mb-2 lg mb-3">
+          <label class="form-label">Jornada</label>
+          <select class="form-select lg mb-3" name="jornada" id="jornada" required disabled>
+            <option value="" selected>seleccionar jornada</option>
+            <option value="1">Jornada completa</option>
+            <option value="0.5">1/2 Jornada</option>
+            <option value="0.25">1/4 Jornada</option>
+          </select>
+        </div>
+      </div>
+      
+
+      <!--  DEFINICIÓN DE INPUT PARA INGRESAR fecha -->
+      <div style="display: flex; justify-content: space-between;">
+        <div class="mb-2 lg mb-3">
+          <label class="form-label">Fecha de Solicitud</label>
+          <input type="date" obj name="fecha" id="fecha_solicitada" onchange="sinweekend()" onchange="validarFecha()"
+            onblur="obtenerfechafinf1();" required />
+        </div>
+        <div>
+          <label class="form-label">Desde</label>
+          <input type="time" name="hora_ingreso" id="hora_cub" disabled />
+        </div>
+        <div>
+          <label class="form-label">Hasta</label>
+          <input type="time" name="hora_regreso" id="hora_reg" disabled />
+        </div>
+        <div class="mb-2 lg mb-3">
+          <!--  DEFINICIÓN DE INPUT fecha cumpleños -->
+          <label class="form-label">Cumpleaños</label>
+          <input style="width: 150px; align-items: right" type="date" class="obj-dia lg mb-3" obj name="fechaCumple"
+            id="fechaCumple" onchange="validarFecha()" value="{{user.birthday | lower}}" required disabled />
+        </div>
+      </div>
+
+
+      <div style="display: flex; justify-content: space-between; gap: 10px;">
+        <div class="mb-2 lg mb-5">
+          <label class="form-label">Días tomados</label>
+          <input type="number" class="form-control" id="dias_T" name="dias_tomados"
+            value="{{user.dias_tomados | lower}}" disabled />
+        </div>
+        <div class="mb-2 lg mb-5">
+          <label class="form-label">Días Restantes</label>
+          <input type="number" class="form-control" id="dias_R" name="dias_restantes"
+            value="{{user.dias_restantes | lower}}" disabled />
+        </div>
+        <div class="mb-2 lg mb-5">
+          <label class="form-label">Días Cumpleaños</label>
+          <input type="number" class="form-control" id="dias_R" name="dias_cumpleaños"
+            value="{{user.dias_cumpleaños | lower}}" disabled />
+        </div>
+        
+      </div>
+
+
+      <!--  DEFINICIÓN DE BOTÓN PARA VALIDAR ENVIO -->
+      <div class="d-grid gap-2">
+        <input class="btn btn-primary obj-enviar lg mb-5" type="submit" id="enviar" name="enviar">
+        </input>
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+  <!--  IMPORTACIÓN DE JS JQUERY -->
+  <script src='{% static "assets/js/jquery/jquery-3.6.4.min.js" %}'></script>
+  <script src='{% static "assets/js/jquery/jquery-ui.js" %}'></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <!--  IMPORTACIÓN DE JS DE BOOSTRAP -->
+  <script src='{% static "assets/js/bootstrap/bootstrap.bundle.min.js" %}'></script>
+  <!--  IMPORTACIÓN DE JS DE PERSONALIZADO -->
+  <script src='{% static "assets/js/app.js" %}'></script>
+</body>
+
+</html>
+{% endblock %}
